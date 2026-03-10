@@ -1,0 +1,1337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vortex — Documentation & Field Guide</title>
+  <meta name="description" content="The complete documentation for Vortex — a multi-layer behavioral threat analysis platform built to detect Discord-targeting malware.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&family=JetBrains+Mono:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+<!-- ── CURSOR ──────────────────────────────── -->
+<div id="cursor-ring"></div>
+<div id="cursor-dot"></div>
+
+<!-- ── CANVAS BACKGROUND ──────────────────── -->
+<canvas id="bg"></canvas>
+<div id="grain"></div>
+<div id="vignette"></div>
+
+<!-- ── SCROLL PROGRESS ────────────────────── -->
+<div id="prog"><div id="prog-bar"></div></div>
+
+<!-- ── MOBILE TOGGLE ──────────────────────── -->
+<button class="sb-toggle" id="sbBtn" onclick="toggleSB()" aria-label="Menu">
+  <svg width="18" height="14" viewBox="0 0 18 14" fill="none"><rect y="0" width="18" height="2" rx="1" fill="currentColor"/><rect y="6" width="12" height="2" rx="1" fill="currentColor"/><rect y="12" width="18" height="2" rx="1" fill="currentColor"/></svg>
+</button>
+<div class="sb-mask" id="sbMask" onclick="closeSB()"></div>
+
+<!-- ═══════════════════════════════════════════
+     SIDEBAR
+═══════════════════════════════════════════ -->
+<aside class="sidebar" id="sidebar">
+  <div class="sb-glow-top"></div>
+
+  <a class="sb-logo" href="#">
+    <div class="sb-logo-mark">
+      <div class="sb-logo-hex"></div>
+      <span class="sb-logo-letter">V</span>
+    </div>
+    <div>
+      <div class="sb-logo-name">VORTEX</div>
+      <div class="sb-logo-sub">Documentation v1.0</div>
+    </div>
+  </a>
+
+  <nav class="sb-nav" id="sbNav">
+    <div class="sb-group">
+      <div class="sb-group-title">Introduction</div>
+      <a class="sb-item" href="#hero" data-s="hero">
+        <svg class="sb-icon" viewBox="0 0 16 16"><circle cx="8" cy="8" r="6" stroke="currentColor" stroke-width="1.5" fill="none"/><path d="M8 5v4l2.5 1.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        Overview<span class="sb-num">01</span>
+      </a>
+      <a class="sb-item" href="#what" data-s="what">
+        <svg class="sb-icon" viewBox="0 0 16 16"><path d="M2 4h12M2 8h8M2 12h10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        What is Vortex<span class="sb-num">02</span>
+      </a>
+    </div>
+
+    <div class="sb-group">
+      <div class="sb-group-title">Getting Started</div>
+      <a class="sb-item" href="#account" data-s="account">
+        <svg class="sb-icon" viewBox="0 0 16 16"><circle cx="8" cy="5" r="3" stroke="currentColor" stroke-width="1.5" fill="none"/><path d="M2 14c0-3.3 2.7-6 6-6s6 2.7 6 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"/></svg>
+        Create Account<span class="sb-num">03</span>
+      </a>
+      <a class="sb-item" href="#apikeys" data-s="apikeys">
+        <svg class="sb-icon" viewBox="0 0 16 16"><path d="M11 3a3 3 0 1 0 0 6 3 3 0 0 0 0-6zm0 0L5 9l-2 2v2h2l2-2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"/></svg>
+        API Keys<span class="sb-num">04</span>
+      </a>
+      <a class="sb-item" href="#profile" data-s="profile">
+        <svg class="sb-icon" viewBox="0 0 16 16"><rect x="2" y="2" width="12" height="12" rx="2" stroke="currentColor" stroke-width="1.5" fill="none"/><circle cx="8" cy="6" r="2" stroke="currentColor" stroke-width="1.5" fill="none"/><path d="M4 13c0-2.2 1.8-4 4-4s4 1.8 4 4" stroke="currentColor" stroke-width="1.5" fill="none"/></svg>
+        Profile Setup<span class="sb-num">05</span>
+      </a>
+    </div>
+
+    <div class="sb-group">
+      <div class="sb-group-title">Scanning</div>
+      <a class="sb-item" href="#scanning" data-s="scanning">
+        <svg class="sb-icon" viewBox="0 0 16 16"><circle cx="7" cy="7" r="4" stroke="currentColor" stroke-width="1.5" fill="none"/><path d="M10.5 10.5L14 14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        How to Scan<span class="sb-num">06</span>
+      </a>
+      <a class="sb-item" href="#rules" data-s="rules">
+        <svg class="sb-icon" viewBox="0 0 16 16"><path d="M8 2L2 5v5c0 3.5 2.5 5.8 6 6.5 3.5-.7 6-3 6-6.5V5L8 2z" stroke="currentColor" stroke-width="1.5" fill="none"/></svg>
+        Scan Rules<span class="sb-num">07</span>
+      </a>
+      <a class="sb-item" href="#results" data-s="results">
+        <svg class="sb-icon" viewBox="0 0 16 16"><path d="M2 12L6 7l3 4 3-6 2 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>
+        Reading Results<span class="sb-num">08</span>
+      </a>
+      <a class="sb-item" href="#methods" data-s="methods">
+        <svg class="sb-icon" viewBox="0 0 16 16"><rect x="2" y="2" width="5" height="5" rx="1" stroke="currentColor" stroke-width="1.5" fill="none"/><rect x="9" y="2" width="5" height="5" rx="1" stroke="currentColor" stroke-width="1.5" fill="none"/><rect x="2" y="9" width="5" height="5" rx="1" stroke="currentColor" stroke-width="1.5" fill="none"/><rect x="9" y="9" width="5" height="5" rx="1" stroke="currentColor" stroke-width="1.5" fill="none"/></svg>
+        Analysis Methods<span class="sb-num">09</span>
+      </a>
+    </div>
+
+    <div class="sb-group">
+      <div class="sb-group-title">Plans</div>
+      <a class="sb-item" href="#plans" data-s="plans">
+        <svg class="sb-icon" viewBox="0 0 16 16"><path d="M2 8h12M2 4h5M2 12h8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><circle cx="12" cy="4" r="2" stroke="currentColor" stroke-width="1.5" fill="none"/></svg>
+        Free vs Premium<span class="sb-num">10</span>
+      </a>
+      <a class="sb-item" href="#history" data-s="history">
+        <svg class="sb-icon" viewBox="0 0 16 16"><circle cx="8" cy="8" r="6" stroke="currentColor" stroke-width="1.5" fill="none"/><path d="M8 4v4l3 2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        Scan History<span class="sb-num">11</span>
+      </a>
+    </div>
+
+    <div class="sb-group">
+      <div class="sb-group-title">Community</div>
+      <a class="sb-item" href="#badges" data-s="badges">
+        <svg class="sb-icon" viewBox="0 0 16 16"><circle cx="8" cy="6" r="4" stroke="currentColor" stroke-width="1.5" fill="none"/><path d="M5 9.5L4 14l4-2 4 2-1-4.5" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" fill="none"/></svg>
+        Badge System<span class="sb-num">12</span>
+      </a>
+      <a class="sb-item" href="#rep" data-s="rep">
+        <svg class="sb-icon" viewBox="0 0 16 16"><path d="M8 2l1.8 3.8L14 6.5l-3 3 .7 4.2L8 11.7l-3.7 2 .7-4.2-3-3 4.2-.7z" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linejoin="round"/></svg>
+        Reputation<span class="sb-num">13</span>
+      </a>
+      <a class="sb-item" href="#leaderboard" data-s="leaderboard">
+        <svg class="sb-icon" viewBox="0 0 16 16"><rect x="2" y="8" width="3" height="6" rx="1" stroke="currentColor" stroke-width="1.5" fill="none"/><rect x="6.5" y="5" width="3" height="9" rx="1" stroke="currentColor" stroke-width="1.5" fill="none"/><rect x="11" y="2" width="3" height="12" rx="1" stroke="currentColor" stroke-width="1.5" fill="none"/></svg>
+        Leaderboard<span class="sb-num">14</span>
+      </a>
+    </div>
+
+    <div class="sb-group">
+      <div class="sb-group-title">Reference</div>
+      <a class="sb-item" href="#conduct" data-s="conduct">
+        <svg class="sb-icon" viewBox="0 0 16 16"><path d="M8 2L2 5v5c0 3.5 2.5 5.8 6 6.5 3.5-.7 6-3 6-6.5V5L8 2z" stroke="currentColor" stroke-width="1.5" fill="none"/><path d="M5.5 8l2 2 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Rules & Conduct<span class="sb-num">15</span>
+      </a>
+      <a class="sb-item" href="#faq" data-s="faq">
+        <svg class="sb-icon" viewBox="0 0 16 16"><circle cx="8" cy="8" r="6" stroke="currentColor" stroke-width="1.5" fill="none"/><path d="M6.5 6a1.5 1.5 0 0 1 3 0c0 1-1.5 1.5-1.5 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><circle cx="8" cy="12" r="0.75" fill="currentColor"/></svg>
+        FAQ<span class="sb-num">16</span>
+      </a>
+      <a class="sb-item" href="#download" data-s="download">
+        <svg class="sb-icon" viewBox="0 0 16 16"><path d="M8 2v8M5 7l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M2 12v1a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1v-1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        Download<span class="sb-num">17</span>
+      </a>
+    </div>
+  </nav>
+
+  <div class="sb-footer">
+    <div class="sb-online">
+      <span class="sb-pulse"></span>
+      <span>Documentation Live</span>
+    </div>
+    <div class="sb-version">v1.0.0 · 2025</div>
+  </div>
+</aside>
+
+<!-- ═══════════════════════════════════════════
+     NAVBAR
+═══════════════════════════════════════════ -->
+<div class="navbar">
+  <div class="nb-trail">
+    <span>VORTEX</span>
+    <svg width="8" height="12" viewBox="0 0 8 12" fill="none" class="nb-sep"><path d="M1 1l6 5-6 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    <span class="nb-trail-curr" id="nbCurr">Overview</span>
+  </div>
+  <div class="nb-right">
+    <a href="#download" class="nb-btn">
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 1v7M4.5 6l2.5 2.5L9.5 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M1.5 10.5v1a1 1 0 0 0 1 1h9a1 1 0 0 0 1-1v-1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+      Download
+    </a>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     MAIN CONTENT
+═══════════════════════════════════════════ -->
+<main class="main">
+
+<!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+     HERO
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
+<section class="s" id="hero">
+  <div class="hero-glow-1"></div>
+  <div class="hero-glow-2"></div>
+  <div class="hero-orbit ho-1" id="orb1"><div class="ho-dot"></div></div>
+  <div class="hero-orbit ho-2" id="orb2"></div>
+
+  <div class="s-inner hero-inner">
+    <div class="hero-content">
+      <div class="hero-eyebrow rv" style="transition-delay:0.05s">
+        <div class="he-line"></div>
+        <span class="he-text">Advanced Threat Analysis Platform</span>
+      </div>
+
+      <h1 class="hero-title rv" data-text="VORTEX" style="transition-delay:0.15s">VORTEX</h1>
+      <div class="hero-sub-word rv" style="transition-delay:0.22s">FIELD GUIDE</div>
+
+      <p class="hero-desc rv" style="transition-delay:0.3s">
+        The complete documentation for Vortex — a multi-layer behavioral threat analysis platform
+        built specifically to detect Discord-targeting malware, token stealers, and credential grabbers.
+      </p>
+
+      <div class="hero-chips rv" style="transition-delay:0.38s">
+        <span class="chip chip-teal">Discord Threat Detection</span>
+        <span class="chip chip-teal">Behavioral Analysis</span>
+        <span class="chip chip-red">AI Verdict Engine</span>
+        <span class="chip">Cloud Intelligence</span>
+        <span class="chip">Risk Scoring</span>
+      </div>
+
+      <div class="hero-actions rv" style="transition-delay:0.45s">
+        <a href="#account" class="btn-primary">
+          Get Started
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+        <a href="#download" class="btn-ghost">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 2v8M5 7l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M2 12v1a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1v-1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+          Download Tool
+        </a>
+      </div>
+    </div>
+
+    <!-- Floating 3D panels -->
+    <div class="hero-panels" id="stage3d">
+      <div class="hpanel hp1" id="panel1">
+        <div class="hp-bar">
+          <div class="hp-dots"><span class="hpd r"></span><span class="hpd y"></span><span class="hpd g"></span></div>
+          <span class="hp-title">VORTEX — SCAN ENGINE</span>
+        </div>
+        <div class="hp-body">
+          <div class="hp-row"><span class="hl">FILE  </span><span class="hk">discord_nitro_gen.exe</span></div>
+          <div class="hp-row"><span class="hl">HASH  </span><span class="hl sm">4a7f2c···d9e1b3</span></div>
+          <div class="hp-row"><span class="hl">SIZE  </span><span class="hv">2.4 MB</span></div>
+          <div class="hp-row mt"><span class="hl">VT    </span><span class="hw">38/72 ENGINES</span></div>
+          <div class="hp-row"><span class="hl">SCORE </span><span class="hw">94 / 100</span></div>
+          <div class="hp-row"><span class="hl">LABEL </span><span class="hw anim">TOKEN STEALER</span></div>
+          <div class="hp-row mt"><span class="hl">AI    </span><span class="hv">VERDICT: YES [97%]</span></div>
+        </div>
+        <div class="hp-bar-scan"><div class="hp-fill"></div></div>
+      </div>
+      <div class="hpanel hp2" id="panel2">
+        <div class="hp-bar">
+          <div class="hp-dots"><span class="hpd r"></span><span class="hpd y"></span><span class="hpd g"></span></div>
+          <span class="hp-title">BEHAVIORAL ANALYSIS</span>
+        </div>
+        <div class="hp-body">
+          <div class="hp-row"><span class="hl">STATIC     </span><span class="hv">PASS</span></div>
+          <div class="hp-row"><span class="hl">BEHAVIORAL </span><span class="hv">PASS</span></div>
+          <div class="hp-row"><span class="hl">CLOUD      </span><span class="hv">PASS</span></div>
+          <div class="hp-row"><span class="hl">AI OVERRIDE</span><span class="hw">TRIGGER</span></div>
+          <div class="hp-row mt"><span class="ho">Token access detected</span></div>
+          <div class="hp-row"><span class="ho">Exfil attempt blocked</span></div>
+        </div>
+      </div>
+      <div class="hpanel hp3" id="panel3">
+        <div class="hp-bar">
+          <div class="hp-dots"><span class="hpd r"></span><span class="hpd y"></span><span class="hpd g"></span></div>
+          <span class="hp-title">RISK SCORE</span>
+        </div>
+        <div class="hp-body center">
+          <div class="risk-big">94</div>
+          <div class="risk-lbl">CRITICAL</div>
+          <div class="risk-bar"><div class="risk-bar-fill"></div></div>
+        </div>
+      </div>
+      <svg class="panel-connectors" viewBox="0 0 700 520" fill="none">
+        <line x1="320" y1="260" x2="420" y2="160" stroke="url(#cg1)" stroke-width="0.8" opacity="0.5"/>
+        <line x1="320" y1="280" x2="500" y2="400" stroke="url(#cg2)" stroke-width="0.8" opacity="0.4"/>
+        <circle cx="320" cy="260" r="3" fill="rgba(0,212,184,0.6)"/>
+        <circle cx="420" cy="160" r="2" fill="rgba(123,97,255,0.5)"/>
+        <circle cx="500" cy="400" r="2" fill="rgba(0,212,184,0.4)"/>
+        <defs>
+          <linearGradient id="cg1" x1="320" y1="260" x2="420" y2="160" gradientUnits="userSpaceOnUse">
+            <stop stop-color="rgba(0,212,184,0.8)"/>
+            <stop offset="1" stop-color="rgba(123,97,255,0.5)"/>
+          </linearGradient>
+          <linearGradient id="cg2" x1="320" y1="280" x2="500" y2="400" gradientUnits="userSpaceOnUse">
+            <stop stop-color="rgba(0,212,184,0.6)"/>
+            <stop offset="1" stop-color="rgba(0,212,184,0.2)"/>
+          </linearGradient>
+        </defs>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+     WHAT IS VORTEX
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
+<section class="s s-alt" id="what">
+  <div class="s-inner">
+    <div class="sec-label rv">01 — Introduction</div>
+    <h2 class="sec-title rv">What is <span>Vortex</span></h2>
+    <p class="sec-sub rv">
+      Vortex is a desktop threat analysis tool designed for the Discord community. It helps users identify
+      malicious executables — specifically files that steal Discord tokens, session data, and credentials —
+      before those files are opened or shared.
+    </p>
+
+    <div class="grid grid-3 rv">
+      <div class="card card-teal">
+        <div class="card-icon ci-teal">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="1.8"/><path d="M16.5 16.5L21 21" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M8 11h6M11 8v6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+        </div>
+        <h3>Multi-Layer Analysis</h3>
+        <p>Five independent analysis methods run simultaneously — static inspection, behavioral monitoring, cloud threat intelligence, sandbox data, and AI verdict synthesis.</p>
+      </div>
+      <div class="card card-purple">
+        <div class="card-icon ci-purple">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M12 3L3 7v7c0 5 3.5 8.5 9 10 5.5-1.5 9-5 9-10V7L12 3z" stroke="currentColor" stroke-width="1.8" fill="none"/><path d="M9 12l2 2 4-4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <h3>Discord-Focused Detection</h3>
+        <p>Purpose-built to catch Discord token stealers, webhook exfiltrators, and credential grabbers — threats that generic scanners frequently miss or misclassify.</p>
+      </div>
+      <div class="card card-red">
+        <div class="card-icon ci-red">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="18" height="18" rx="3" stroke="currentColor" stroke-width="1.8" fill="none"/><path d="M8 12l3 3 5-5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <h3>Global Threat Database</h3>
+        <p>Every completed scan contributes to a shared database. When any user scans a previously analyzed file, cached results return instantly — protecting the whole community.</p>
+      </div>
+    </div>
+
+    <div class="divider rv"></div>
+
+    <div class="feature-row rv">
+      <div class="feature-text">
+        <div class="sec-label">Core Purpose</div>
+        <h3 class="feature-title">Built for community-level defense</h3>
+        <p class="feature-desc">Discord's ecosystem is a frequent target for social-engineering attacks where malicious files disguised as game cheats, Nitro generators, or free software are shared in servers. Vortex exists to give users a fast, reliable way to verify a file's intent before it can do harm.</p>
+        <ul class="feature-list">
+          <li>
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6" stroke="currentColor" stroke-width="1.5"/><path d="M5.5 8l2 2 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Detects token stealers that bypass traditional antivirus
+          </li>
+          <li>
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6" stroke="currentColor" stroke-width="1.5"/><path d="M5.5 8l2 2 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Produces human-readable reports with evidence reasoning
+          </li>
+          <li>
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6" stroke="currentColor" stroke-width="1.5"/><path d="M5.5 8l2 2 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Community leaderboard tracks top threat hunters
+          </li>
+        </ul>
+      </div>
+      <div class="feature-visual">
+        <div class="terminal">
+          <div class="term-head">
+            <span class="td td-r"></span><span class="td td-y"></span><span class="td td-g"></span>
+            <span class="th-title">ANALYSIS PIPELINE</span>
+          </div>
+          <div class="term-body">
+            <span class="t-line"><span class="tk">$</span> <span class="tv">vortex</span> <span class="tl">analyze</span> <span class="tk">target.exe</span></span>
+            <span class="t-line mt"><span class="tc">// Layer 1 — Static</span></span>
+            <span class="t-line"><span class="tl">Parsing PE structure   </span><span class="tv">DONE</span></span>
+            <span class="t-line"><span class="tl">YARA rule scan         </span><span class="tv">3 matches</span></span>
+            <span class="t-line mt"><span class="tc">// Layer 2 — Cloud</span></span>
+            <span class="t-line"><span class="tl">VirusTotal             </span><span class="tw">38/72 engines</span></span>
+            <span class="t-line"><span class="tl">Hybrid Analysis        </span><span class="tw">malicious</span></span>
+            <span class="t-line mt"><span class="tc">// Layer 3 — Behavioral</span></span>
+            <span class="t-line"><span class="tl">Token access           </span><span class="tw">DETECTED</span></span>
+            <span class="t-line mt"><span class="tc">// Layer 4 — AI Verdict</span></span>
+            <span class="t-line"><span class="tl">Final verdict          </span><span class="tw">YES [97%]</span></span>
+            <span class="t-line mt"><span class="tk">Risk score: </span><span class="tw">94/100</span><span class="tl"> — CRITICAL</span></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+     CREATE ACCOUNT
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
+<section class="s" id="account">
+  <div class="s-inner">
+    <div class="sec-label rv">02 — Getting Started</div>
+    <h2 class="sec-title rv">Create Your<br><span>Account</span></h2>
+    <p class="sec-sub rv">
+      Account creation happens inside the Vortex application. You need one account to use the tool.
+      Accounts are free, each person is allowed exactly one, and registration must be done on your real
+      home or mobile network.
+    </p>
+
+    <div class="steps rv">
+      <div class="step">
+        <div class="step-n"><div class="step-circle">1</div></div>
+        <div class="step-body">
+          <h4>Open Vortex and click Register</h4>
+          <p>Launch Vortex for the first time. On the login screen, click the Register tab. Do not use a VPN, proxy, or any non-residential IP during this step — registration from datacenter IPs is blocked.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-n"><div class="step-circle">2</div></div>
+        <div class="step-body">
+          <h4>Fill in your account details</h4>
+          <p>Enter your chosen username, a valid email address, and a password. Your username is permanent — it cannot be changed after registration, so choose carefully. The email is used for login only.</p>
+          <div class="callout c-warn" style="margin-top:14px">
+            <svg class="callout-icon" width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M9 2L1.5 15.5h15L9 2z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M9 8v3.5M9 13.5v.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+            <div class="callout-body">Usernames cannot be changed once set. Think carefully before registering.</div>
+          </div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-n"><div class="step-circle">3</div></div>
+        <div class="step-body">
+          <h4>Account is bound to your hardware</h4>
+          <p>On first login, your account is permanently linked to your device's hardware ID. This prevents account sharing. If you need to transfer your account to a new device later, contact the Vortex team directly. Attempting to bypass this creates a new bannable account.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-n"><div class="step-circle">4</div></div>
+        <div class="step-body">
+          <h4>You're in — configure your API keys next</h4>
+          <p>After successful registration and login, your account is live. Before scanning, you'll need to add your API keys to config.json. Head to the API Keys section of this guide for the exact steps.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="callout c-info rv">
+      <svg class="callout-icon" width="18" height="18" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="7" stroke="currentColor" stroke-width="1.5"/><path d="M9 8v5M9 5.5v.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+      <div class="callout-body">
+        One person, one account. Creating multiple accounts for the same person or device is a bannable offense with no appeal pathway. The system monitors for duplicate hardware IDs automatically.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+     API KEYS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
+<section class="s s-alt" id="apikeys">
+  <div class="s-inner">
+    <div class="sec-label rv">03 — Getting Started</div>
+    <h2 class="sec-title rv">Configuring<br><span>API Keys</span></h2>
+    <p class="sec-sub rv">
+      Vortex requires three external API keys to unlock its full analysis capability.
+      Keys are stored locally in <span class="mono-inline">config.json</span> — they never leave your machine except to query
+      their respective services during a scan.
+    </p>
+
+    <div class="grid grid-3 rv">
+      <div class="card card-teal">
+        <div class="card-label cl-free">Free Key</div>
+        <h3>VirusTotal</h3>
+        <p>Used to query VirusTotal's database of 70+ antivirus engine results for any submitted file hash. Required for exe/dll scan completeness.</p>
+        <div class="key-steps">
+          <div class="ks">1. Go to virustotal.com and create a free account</div>
+          <div class="ks">2. Navigate to your profile → API Key</div>
+          <div class="ks">3. Copy the 64-character key</div>
+          <div class="ks">4. Paste it into config.json as <span class="mono-sm">vtApiKey</span></div>
+        </div>
+        <div class="key-limit">Free tier: 500 requests/day · 4/min</div>
+      </div>
+      <div class="card card-purple">
+        <div class="card-label cl-free">Free Key</div>
+        <h3>Hybrid Analysis</h3>
+        <p>Queries Hybrid Analysis's sandbox database for existing behavioral reports by file hash. Required for exe/dll scan completeness.</p>
+        <div class="key-steps">
+          <div class="ks">1. Go to hybrid-analysis.com and register</div>
+          <div class="ks">2. Access your profile → API Key</div>
+          <div class="ks">3. Copy your key</div>
+          <div class="ks">4. Paste it as <span class="mono-sm">haApiKey</span> in config.json</div>
+        </div>
+        <div class="key-limit">Free tier: 200 requests/day</div>
+      </div>
+      <div class="card card-red">
+        <div class="card-label cl-paid">Paid Key</div>
+        <h3>OpenRouter</h3>
+        <p>Powers the AI verdict engine. Multiple models independently analyze all gathered evidence and produce a synthesized verdict with reasoning.</p>
+        <div class="key-steps">
+          <div class="ks">1. Go to openrouter.ai and create an account</div>
+          <div class="ks">2. Add credits to your account (small amount sufficient)</div>
+          <div class="ks">3. Generate an API key under your settings</div>
+          <div class="ks">4. Paste it as <span class="mono-sm">openrouterApiKey</span> in config.json</div>
+        </div>
+        <div class="key-limit">Pay-per-use · Small per-scan cost</div>
+      </div>
+    </div>
+
+    <div class="terminal rv" style="margin-top:32px">
+      <div class="term-head">
+        <span class="td td-r"></span><span class="td td-y"></span><span class="td td-g"></span>
+        <span class="th-title">config.json</span>
+      </div>
+      <div class="term-body">
+        <span class="t-line"><span class="tl">{</span></span>
+        <span class="t-line indent"><span class="tk">"vtApiKey"</span><span class="tl">:          </span><span class="tv">"YOUR_VIRUSTOTAL_KEY_HERE"</span><span class="tl">,</span></span>
+        <span class="t-line indent"><span class="tk">"haApiKey"</span><span class="tl">:          </span><span class="tv">"YOUR_HYBRID_ANALYSIS_KEY_HERE"</span><span class="tl">,</span></span>
+        <span class="t-line indent"><span class="tk">"openrouterApiKey"</span><span class="tl">: </span><span class="tv">"YOUR_OPENROUTER_KEY_HERE"</span></span>
+        <span class="t-line"><span class="tl">}</span></span>
+      </div>
+    </div>
+
+    <div class="callout c-danger rv">
+      <svg class="callout-icon" width="18" height="18" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="7" stroke="currentColor" stroke-width="1.5"/><path d="M9 5v5M9 12.5v.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+      <div class="callout-body">
+        <strong>Never share your config.json file.</strong> Anyone with your API keys can consume your quota and perform scans under your identity. Never screenshot it, post it online, or include it in support requests.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+     PROFILE SETUP
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
+<section class="s" id="profile">
+  <div class="s-inner">
+    <div class="sec-label rv">04 — Getting Started</div>
+    <h2 class="sec-title rv">Your <span>Profile</span></h2>
+    <p class="sec-sub rv">
+      Your profile is visible to other users — it shows your stats, equipped badges, and the display name
+      attached to all scan records you've submitted.
+    </p>
+
+    <div class="grid grid-2 rv">
+      <div class="card card-teal">
+        <div class="card-icon ci-teal">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M11 4H4a1 1 0 0 0-1 1v14a1 1 0 0 0 1 1h16a1 1 0 0 0 1-1v-7" stroke="currentColor" stroke-width="1.8" fill="none"/><path d="M18.5 2.5a2.12 2.12 0 0 1 3 3L12 15l-4 1 1-4z" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+        </div>
+        <h3>Editable Fields</h3>
+        <ul>
+          <li><strong>Display Name</strong> — shown on scan records and your profile page</li>
+          <li><strong>Avatar URL</strong> — a direct image link for your profile picture</li>
+          <li><strong>Bio</strong> — a short description visible to other users</li>
+          <li><strong>Pronouns</strong> — displayed alongside your name on your profile</li>
+          <li><strong>Equipped Badges</strong> — choose which earned badges to show</li>
+          <li><strong>Display Badge</strong> — single badge shown on scan record cards</li>
+        </ul>
+      </div>
+      <div class="card card-purple">
+        <div class="card-icon ci-purple">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><rect x="3" y="11" width="18" height="11" rx="2" stroke="currentColor" stroke-width="1.8" fill="none"/><path d="M7 11V7a5 5 0 0 1 10 0v4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+        </div>
+        <h3>Fixed Fields</h3>
+        <ul>
+          <li><strong>Username</strong> — chosen at registration, cannot be changed</li>
+          <li><strong>Email</strong> — used for login authentication only</li>
+          <li><strong>Reputation</strong> — earned through scanning, never set manually</li>
+          <li><strong>Grabber Detections</strong> — auto-tracked count of threats found</li>
+          <li><strong>Total Scans</strong> — cumulative lifetime count, auto-tracked</li>
+          <li><strong>Badges</strong> — earned automatically at milestones, not purchasable</li>
+        </ul>
+      </div>
+    </div>
+    <div class="callout c-info rv">
+      <svg class="callout-icon" width="18" height="18" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="7" stroke="currentColor" stroke-width="1.5"/><path d="M9 8v5M9 5.5v.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+      <div class="callout-body">
+        Access the profile editor at any time by clicking your <strong>username or avatar</strong> in the Vortex sidebar. Changes save instantly and are immediately reflected on all your scan records.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+     HOW TO SCAN
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
+<section class="s s-alt" id="scanning">
+  <div class="s-inner">
+    <div class="sec-label rv">05 — Scanning</div>
+    <h2 class="sec-title rv">How to <span>Scan a File</span></h2>
+    <p class="sec-sub rv">
+      Three methods to load a file into Vortex. All three lead to the identical analysis pipeline.
+    </p>
+
+    <div class="grid grid-3 rv">
+      <div class="card card-teal" style="transition-delay:0.05s">
+        <div class="card-icon ci-teal">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z" stroke="currentColor" stroke-width="1.8" fill="none"/></svg>
+        </div>
+        <h3>File Browser</h3>
+        <p>Click the upload zone in the Scanner tab. A standard file picker opens — navigate to the target file and click Open to begin analysis.</p>
+        <ul style="margin-top:16px">
+          <li>Click the upload zone on the Scanner tab</li>
+          <li>Navigate to the file in the dialog</li>
+          <li>Click Open — scan begins automatically</li>
+        </ul>
+      </div>
+      <div class="card card-purple" style="transition-delay:0.1s">
+        <div class="card-icon ci-purple">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+        </div>
+        <h3>Drag & Drop</h3>
+        <p>Drag any file from Windows File Explorer and drop it directly onto the Vortex window. The fastest method — zero navigation required.</p>
+        <ul style="margin-top:16px">
+          <li>Open File Explorer alongside Vortex</li>
+          <li>Drag the target file</li>
+          <li>Drop onto the Vortex window — instant load</li>
+        </ul>
+      </div>
+      <div class="card card-teal" style="transition-delay:0.15s">
+        <div class="card-icon ci-teal">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z" stroke="currentColor" stroke-width="1.8" fill="none"/><path d="M12 11v6M9 14l3 3 3-3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <h3>Folder or Archive</h3>
+        <p>Select an entire folder or a RAR archive. Vortex enumerates every file inside and scans each individually through the full pipeline.</p>
+        <ul style="margin-top:16px">
+          <li>Browse to the folder or .rar file</li>
+          <li>Each contained file is scanned one by one</li>
+          <li>Each file costs a separate scan credit</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="divider rv"></div>
+
+    <div class="sec-label rv">What Happens During a Scan</div>
+    <div class="steps rv">
+      <div class="step">
+        <div class="step-n"><div class="step-circle">1</div></div>
+        <div class="step-body">
+          <h4>File is hashed — database checked</h4>
+          <p>Vortex computes a cryptographic hash of the file. If this exact file has been scanned before by any user in the global database, the cached result is returned immediately. Your scan credit is still used — but the result is instant.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-n"><div class="step-circle">2</div></div>
+        <div class="step-body">
+          <h4>Static analysis begins immediately</h4>
+          <p>The file is inspected without being executed. Internal structure, byte patterns, embedded strings, import tables, entropy levels, compression signatures, and metadata are all analyzed. This runs on every file, every time.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-n"><div class="step-circle">3</div></div>
+        <div class="step-body">
+          <h4>Cloud intelligence queries run in parallel</h4>
+          <p>Your VirusTotal and Hybrid Analysis keys are used to query existing reports. These run simultaneously alongside local analysis to minimize total scan time. For exe/dll/sys files, <strong>both services must return results</strong> for the scan to be marked complete and saved.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-n"><div class="step-circle">4</div></div>
+        <div class="step-body">
+          <h4>Behavioral analysis observes runtime behavior</h4>
+          <p>For supported executable formats, the file is monitored in a controlled, instrumented environment. This layer observes what the file actually does when it runs — file system access, network connections, memory operations, code injection, and attempts to access Discord-related data.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-n"><div class="step-circle">5</div></div>
+        <div class="step-body">
+          <h4>AI engine produces the final verdict</h4>
+          <p>All gathered data is fed to multiple AI models. Each independently analyzes the full evidence set and produces a verdict with a confidence score. A final synthesis pass combines all judgments into the definitive result — with reasoning you can read in the report.</p>
+          <div class="step-note">
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="5.5" stroke="currentColor" stroke-width="1.3"/><path d="M7 4v3.5l2 1.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
+            New exe/dll: 60–180 seconds · Duplicate files: instant · Other formats: faster
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+     SCAN RULES
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
+<section class="s" id="rules">
+  <div class="s-inner">
+    <div class="sec-label rv">06 — Scanning</div>
+    <h2 class="sec-title rv">Credit &amp;<br><span>Scan Rules</span></h2>
+    <p class="sec-sub rv">
+      Understanding exactly when scan credits are deducted prevents unexpected losses and helps
+      you use your daily allocation efficiently.
+    </p>
+
+    <div class="grid grid-2 rv">
+      <div class="card card-teal">
+        <div class="card-icon ci-teal" style="font-size:0.9rem;font-family:'Sora',sans-serif;font-weight:700;letter-spacing:0.05em">FREE</div>
+        <h3>Free Scan Rules</h3>
+        <ul>
+          <li>Deducted on <strong>every scan</strong> — new file or duplicate, always</li>
+          <li>Deducted when the file is submitted, not when results arrive</li>
+          <li>Not deducted if the scan fails to start (login error, server down)</li>
+          <li><strong>5 free scans per day</strong> per account</li>
+          <li>Resets at <strong>12:00 AM IST</strong> (Indian Standard Time) daily</li>
+          <li>Free scans are always used before premium credits</li>
+        </ul>
+      </div>
+      <div class="card card-purple">
+        <div class="card-icon ci-purple" style="font-size:0.85rem;font-family:'Sora',sans-serif;font-weight:700;letter-spacing:0.04em">PREM</div>
+        <h3>Premium Scan Rules</h3>
+        <ul>
+          <li>Only deducted when scanning a <strong>file not yet in the database</strong></li>
+          <li><strong>Zero cost</strong> to scan a file that already exists in the database</li>
+          <li>Premium credits <strong>never expire</strong> and never reset daily</li>
+          <li>Automatically used after your daily free scans run out</li>
+          <li>Stack on top of your daily free allocation</li>
+          <li>Purchased separately — contact the team for pricing</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="divider rv"></div>
+
+    <div class="sec-label rv">Scan Completeness</div>
+    <p class="rv body-text" style="max-width:640px;margin-bottom:28px">
+      Only <strong>complete</strong> scans are permanently saved to the global database and shown in your history.
+      Completeness requirements differ by file type.
+    </p>
+
+    <div class="rv">
+      <table class="tbl">
+        <thead><tr><th>File Type</th><th>Required for Completion</th><th>If Not Met</th></tr></thead>
+        <tbody>
+          <tr>
+            <td><span class="mono-inline">.exe / .dll / .sys</span></td>
+            <td><span class="td-good">Both VT and Hybrid Analysis must return results</span></td>
+            <td>Result not saved — re-upload and retry</td>
+          </tr>
+          <tr>
+            <td>Images, scripts, other formats</td>
+            <td><span class="td-good">Static analysis and AI pass is sufficient</span></td>
+            <td>Always saved — cloud services not required</td>
+          </tr>
+          <tr>
+            <td>Files inside a RAR archive</td>
+            <td>Each file follows its own type's rule independently</td>
+            <td>Individual results saved if they meet their rule</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="callout c-warn rv">
+      <svg class="callout-icon" width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M9 2L1.5 15.5h15L9 2z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M9 8v3.5M9 13.5v.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+      <div class="callout-body">
+        If an exe/dll scan shows "incomplete," one of the cloud services didn't respond in time — usually a network timeout or API rate limit. <strong>Re-upload the file to try again.</strong> Your scan credit was already deducted and cannot be refunded, but the retry works normally.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+     READING RESULTS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
+<section class="s s-alt" id="results">
+  <div class="s-inner">
+    <div class="sec-label rv">07 — Scanning</div>
+    <h2 class="sec-title rv">Reading<br><span>Scan Results</span></h2>
+    <p class="sec-sub rv">
+      Every scan produces a Risk Score from 0 to 100 and a detection label. These are the primary verdict —
+      everything else in the report is supporting evidence.
+    </p>
+
+    <div class="risk-visual rv">
+      <div class="risk-gauge-wrap">
+        <div class="risk-gauge-svg">
+          <svg width="200" height="130" viewBox="0 0 200 130">
+            <path d="M 18 118 A 86 86 0 0 1 182 118" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="12" stroke-linecap="round"/>
+            <path d="M 18 118 A 86 86 0 0 1 75 36" fill="none" stroke="rgba(0,212,184,0.45)" stroke-width="12" stroke-linecap="round"/>
+            <path d="M 75 36 A 86 86 0 0 1 145 36" fill="none" stroke="rgba(255,184,0,0.45)" stroke-width="12" stroke-linecap="round"/>
+            <path d="M 145 36 A 86 86 0 0 1 182 118" fill="none" stroke="rgba(239,68,68,0.5)" stroke-width="12" stroke-linecap="round"/>
+            <line x1="100" y1="118" x2="62" y2="55" stroke="rgba(0,212,184,0.95)" stroke-width="2.5" stroke-linecap="round"/>
+            <circle cx="100" cy="118" r="5" fill="rgba(0,212,184,0.9)" style="filter:drop-shadow(0 0 6px rgba(0,212,184,0.8))"/>
+          </svg>
+          <div class="gauge-center"><div class="gauge-num">65</div><div class="gauge-lbl">EXAMPLE</div></div>
+        </div>
+        <div class="risk-zones">
+          <div class="rz"><span class="rz-rng teal">0–19</span><div class="rz-track"><div class="rz-fill rf-c"></div></div><span class="rz-label">Clean</span></div>
+          <div class="rz"><span class="rz-rng gold">20–39</span><div class="rz-track"><div class="rz-fill rf-l"></div></div><span class="rz-label">Low Risk</span></div>
+          <div class="rz"><span class="rz-rng gold">40–59</span><div class="rz-track"><div class="rz-fill rf-m"></div></div><span class="rz-label">Moderate — Caution</span></div>
+          <div class="rz"><span class="rz-rng red">60–79</span><div class="rz-track"><div class="rz-fill rf-h"></div></div><span class="rz-label">Suspicious</span></div>
+          <div class="rz"><span class="rz-rng red">80–100</span><div class="rz-track"><div class="rz-fill rf-t"></div></div><span class="rz-label">Threat Detected</span></div>
+        </div>
+      </div>
+
+      <table class="tbl" style="margin-top:32px">
+        <thead><tr><th>Detection Label</th><th>Score</th><th>Meaning</th></tr></thead>
+        <tbody>
+          <tr><td><span class="pill pill-clean">Clean</span></td><td class="mono-inline">0–59</td><td>No significant indicators. File is considered safe.</td></tr>
+          <tr><td><span class="pill pill-warn">Suspicious</span></td><td class="mono-inline">60–79</td><td>Enough indicators to flag concern. Treat with caution — do not run from unknown sources.</td></tr>
+          <tr><td><span class="pill pill-danger">Highly Suspicious</span></td><td class="mono-inline">80–99</td><td>Strong malicious evidence. Do not open or execute this file.</td></tr>
+          <tr><td><span class="pill pill-danger">Discord Token Stealer</span></td><td class="mono-inline">100 / Rule</td><td>Confirmed threat — contains token-stealing code. Delete and report immediately.</td></tr>
+          <tr><td><span class="pill pill-neutral">Error</span></td><td class="mono-inline">N/A</td><td>Scan failed mid-analysis. No verdict produced. Re-scan the file.</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="callout c-info rv" style="margin-top:24px">
+      <svg class="callout-icon" width="18" height="18" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="7" stroke="currentColor" stroke-width="1.5"/><path d="M9 8v5M9 5.5v.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+      <div class="callout-body">
+        A score of <strong>60 or above triggers the suspicious flag</strong>. A score of <strong>80 or above</strong> is a high-confidence detection. The AI verdict may override the numeric score in edge cases — always read the full reasoning before making a final judgment.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+     ANALYSIS METHODS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
+<section class="s" id="methods">
+  <div class="s-inner">
+    <div class="sec-label rv">08 — Scanning</div>
+    <h2 class="sec-title rv">Analysis<br><span>Methods</span></h2>
+    <p class="sec-sub rv">
+      Vortex runs five independent analysis layers and combines their outputs into a weighted composite risk score.
+      Each layer targets a different class of evidence.
+    </p>
+
+    <div class="methods-list">
+      <div class="method-card rv" style="transition-delay:0.05s">
+        <div class="method-num">1</div>
+        <div class="method-info">
+          <div class="method-head">
+            <span class="method-name">Static Analysis</span>
+            <span class="method-tag mt-always">Always runs · No API key needed</span>
+          </div>
+          <p>The file is inspected without execution. Internal structure, byte patterns, embedded strings, import tables, entropy levels, compression signatures, and PE metadata are all analyzed. Runs on every file, every time. This layer runs first and produces the foundational evidence set for all subsequent layers.</p>
+        </div>
+      </div>
+
+      <div class="method-card rv" style="transition-delay:0.09s">
+        <div class="method-num">2</div>
+        <div class="method-info">
+          <div class="method-head">
+            <span class="method-name">Behavioral Analysis</span>
+            <span class="method-tag mt-always">Always runs on supported formats</span>
+          </div>
+          <p>For supported executable formats, the file is monitored in a controlled, instrumented environment. This layer observes what the file actually does when it runs — file system access, network connections, memory manipulation, code injection attempts, and any access to Discord-related data or processes. This is the most reliable method for detecting evasive threats that appear harmless in static analysis.</p>
+        </div>
+      </div>
+
+      <div class="method-card rv" style="transition-delay:0.13s">
+        <div class="method-num">3</div>
+        <div class="method-info">
+          <div class="method-head">
+            <span class="method-name">VirusTotal Cross-Reference</span>
+            <span class="method-tag mt-key">Requires your VT API key</span>
+          </div>
+          <p>Queries VirusTotal's database using the file's SHA-256 hash to retrieve results from 70+ antivirus engines. Vortex collects how many engines flagged the file as malicious, what labels they assigned, and specific detection names. This provides immediate broad-coverage verdict data that supplements local analysis with community-wide knowledge.</p>
+        </div>
+      </div>
+
+      <div class="method-card rv" style="transition-delay:0.17s">
+        <div class="method-num">4</div>
+        <div class="method-info">
+          <div class="method-head">
+            <span class="method-name">Sandbox Intelligence — Hybrid Analysis</span>
+            <span class="method-tag mt-key">Requires your HA API key</span>
+          </div>
+          <p>Hybrid Analysis maintains a large database of files that have been previously sandboxed. Vortex queries this database by file hash to retrieve existing behavioral analysis reports — including threat tags, network behavior summaries, verdicts, and classification labels. This provides behavioral context for files that may not yet trigger static signatures, without re-running the sandbox. Required for exe/dll scan completeness.</p>
+        </div>
+      </div>
+
+      <div class="method-card rv" style="transition-delay:0.21s">
+        <div class="method-num">5</div>
+        <div class="method-info">
+          <div class="method-head">
+            <span class="method-name">AI Verdict Engine</span>
+            <span class="method-tag mt-ai">Requires your OpenRouter key</span>
+          </div>
+          <p>Multiple AI models independently receive all gathered evidence — static findings, behavioral observations, cloud verdicts, and more — and each produces a verdict with a confidence score and written reasoning. A final AI synthesis pass then reviews all prior model judgments and produces the definitive classification. The AI pipeline is specifically tuned to differentiate Discord token stealers from software categories that exhibit similar low-level behaviors, like game cheats.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+     PLANS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
+<section class="s s-alt" id="plans">
+  <div class="s-inner">
+    <div class="sec-label rv">09 — Plans</div>
+    <h2 class="sec-title rv">Free vs<br><span>Premium</span></h2>
+    <p class="sec-sub rv">
+      All users receive 5 free scans per day at no cost. Premium scan credits supplement that daily allocation
+      and carry a key advantage: zero cost on duplicate scans.
+    </p>
+
+    <div class="plans-grid rv">
+      <div class="plan plan-free">
+        <div class="plan-badge">Free</div>
+        <div class="plan-price">5 Scans<span class="plan-period">/ day</span></div>
+        <p class="plan-tagline">Every account, every day. No payment. Resets at midnight IST.</p>
+        <ul class="plan-list">
+          <li class="pi-yes">5 scans per day — resets at 12:00 AM IST</li>
+          <li class="pi-yes">Full static analysis pipeline</li>
+          <li class="pi-yes">VirusTotal cross-reference (your key)</li>
+          <li class="pi-yes">Hybrid Analysis sandbox intelligence</li>
+          <li class="pi-yes">Behavioral analysis on supported files</li>
+          <li class="pi-yes">Full AI verdict engine</li>
+          <li class="pi-yes">Complete risk score and detailed report</li>
+          <li class="pi-no">Deducted on both new and duplicate file scans</li>
+        </ul>
+      </div>
+
+      <div class="plan plan-prem">
+        <div class="plan-badge prem">Premium</div>
+        <div class="plan-price">Credits<span class="plan-period">never expire</span></div>
+        <p class="plan-tagline">Purchased credits. Smart deduction: pay only for genuinely new files.</p>
+        <ul class="plan-list">
+          <li class="pi-yes">Everything in Free, plus:</li>
+          <li class="pi-yes">Credits <strong>never expire</strong> — no daily reset</li>
+          <li class="pi-yes"><strong>Zero credit cost</strong> on files already in the database</li>
+          <li class="pi-yes">1 credit deducted only on a genuinely new file</li>
+          <li class="pi-yes">Auto-used after daily free scans are exhausted</li>
+          <li class="pi-yes">Stack seamlessly with daily free scans</li>
+          <li class="pi-yes">Ideal for bulk scanning sessions</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="callout c-warn rv" style="margin-top:28px">
+      <svg class="callout-icon" width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M9 2L1.5 15.5h15L9 2z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M9 8v3.5M9 13.5v.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+      <div class="callout-body">
+        Free scans are deducted whether a file is new or a duplicate. If you're running low on daily scans, <strong>wait for the midnight IST reset</strong> rather than re-scanning files you've already analyzed today. Premium credits are smarter for heavy users — they only cost on new discoveries.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+     SCAN HISTORY
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
+<section class="s" id="history">
+  <div class="s-inner">
+    <div class="sec-label rv">10 — Plans</div>
+    <h2 class="sec-title rv">Scan <span>History</span></h2>
+    <p class="sec-sub rv">Every complete scan is stored in the global database and permanently linked to your account. View your full history from the History tab inside Vortex.</p>
+
+    <div class="grid grid-2 rv">
+      <div class="card card-teal">
+        <div class="card-icon ci-teal">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M9 11l3 3L22 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11" stroke="currentColor" stroke-width="1.8" fill="none"/></svg>
+        </div>
+        <h3>Your History</h3>
+        <p>The History tab shows every scan you've submitted — file name, hash, risk score, detection label, timestamp, and completeness status. Click any entry to open the full detailed report with evidence from all analysis layers.</p>
+      </div>
+      <div class="card card-purple">
+        <div class="card-icon ci-purple">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.8" fill="none"/><path d="M2 12h4M18 12h4M12 2v4M12 18v4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+        </div>
+        <h3>Global Database</h3>
+        <p>Once a file is scanned and marked complete, it enters the shared global database. Any user scanning that same file gets the cached result instantly. The user who first submitted the file is permanently credited as the original discoverer.</p>
+      </div>
+    </div>
+    <div class="callout c-info rv">
+      <svg class="callout-icon" width="18" height="18" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="7" stroke="currentColor" stroke-width="1.5"/><path d="M9 8v5M9 5.5v.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+      <div class="callout-body">
+        Only <strong>complete scans</strong> are permanently stored. Incomplete scans — where cloud services timed out — are not saved and will not appear in your history. Re-scan the file to get a complete, permanent result.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+     BADGES
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
+<section class="s s-alt" id="badges">
+  <div class="s-inner">
+    <div class="sec-label rv">11 — Community</div>
+    <h2 class="sec-title rv">The Badge<br><span>System</span></h2>
+    <p class="sec-sub rv">
+      Badges are milestone awards earned automatically as you scan files and detect threats.
+      Eleven badges exist across two independent progression tracks.
+    </p>
+
+    <div class="badge-track-label rv">
+      Analyst Track — Earned by Reputation
+      <span class="track-pill tp-rep">REP</span>
+    </div>
+    <p class="rv body-text" style="max-width:580px;margin-bottom:24px">
+      Reputation grows each time you contribute completed scans to the global database.
+    </p>
+    <div class="badges rv">
+      <div class="badge badge-rep">
+        <div class="badge-icon">
+          <svg viewBox="0 0 32 32" fill="none"><circle cx="16" cy="14" r="7" stroke="currentColor" stroke-width="1.8"/><path d="M10 20.5L8 28l8-4 8 4-2-7.5" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" fill="none"/><circle cx="16" cy="14" r="3" fill="currentColor" opacity="0.4"/></svg>
+        </div>
+        <div class="badge-name">Analyst I</div>
+        <div class="badge-req">50 Reputation</div>
+      </div>
+      <div class="badge badge-rep">
+        <div class="badge-icon">
+          <svg viewBox="0 0 32 32" fill="none"><circle cx="16" cy="14" r="7" stroke="currentColor" stroke-width="1.8"/><path d="M10 20.5L8 28l8-4 8 4-2-7.5" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" fill="none"/><path d="M12 14l2 2 5-5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+        </div>
+        <div class="badge-name">Analyst II</div>
+        <div class="badge-req">100 Reputation</div>
+      </div>
+      <div class="badge badge-rep">
+        <div class="badge-icon">
+          <svg viewBox="0 0 32 32" fill="none"><path d="M16 4L5 9v9c0 6 4.5 10 11 12.5C23 28 27.5 24 27.5 18V9L16 4z" stroke="currentColor" stroke-width="1.8" fill="none"/><path d="M12 16l2.5 2.5 5-5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+        </div>
+        <div class="badge-name">Analyst III</div>
+        <div class="badge-req">250 Reputation</div>
+      </div>
+      <div class="badge badge-rep">
+        <div class="badge-icon">
+          <svg viewBox="0 0 32 32" fill="none"><path d="M16 4L5 9v9c0 6 4.5 10 11 12.5C23 28 27.5 24 27.5 18V9L16 4z" stroke="currentColor" stroke-width="1.8" fill="none"/><circle cx="16" cy="16" r="4" fill="currentColor" opacity="0.5"/><path d="M13 16l1.5 1.5L20 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </div>
+        <div class="badge-name">Analyst IV</div>
+        <div class="badge-req">350 Reputation</div>
+      </div>
+      <div class="badge badge-rep">
+        <div class="badge-icon">
+          <svg viewBox="0 0 32 32" fill="none"><path d="M16 5l2.5 7.5H26l-6.5 4.5 2.5 7.5L16 20l-6 4.5 2.5-7.5L6 12.5h7.5z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" fill="none"/></svg>
+        </div>
+        <div class="badge-name">Analyst V</div>
+        <div class="badge-req">500 Reputation</div>
+      </div>
+      <div class="badge badge-rep elite">
+        <div class="badge-icon">
+          <svg viewBox="0 0 32 32" fill="none"><path d="M16 4l3.5 7 7.5 1-5.5 5.5 1.5 7.5L16 22l-7 3.5 1.5-7.5L5 12.5l7.5-1z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" fill="none"/><circle cx="16" cy="14" r="3" fill="currentColor" opacity="0.5"/></svg>
+        </div>
+        <div class="badge-name">Elite Analyst</div>
+        <div class="badge-req">1000 Reputation</div>
+      </div>
+    </div>
+
+    <div class="badge-track-label rv" style="margin-top:48px">
+      Hunter Track — Earned by Grabber Detections
+      <span class="track-pill tp-grb">GRAB</span>
+    </div>
+    <p class="rv body-text" style="max-width:580px;margin-bottom:24px">
+      The grabber detection count increases each time one of your scans confirms a Discord token stealer.
+    </p>
+    <div class="badges rv">
+      <div class="badge badge-grb">
+        <div class="badge-icon">
+          <svg viewBox="0 0 32 32" fill="none"><circle cx="16" cy="16" r="10" stroke="currentColor" stroke-width="1.8" fill="none"/><circle cx="16" cy="16" r="5" stroke="currentColor" stroke-width="1.5" fill="none"/><circle cx="16" cy="16" r="1.5" fill="currentColor"/><path d="M16 6v3M16 23v3M6 16h3M23 16h3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </div>
+        <div class="badge-name">Hunter I</div>
+        <div class="badge-req">10 Grabbers</div>
+      </div>
+      <div class="badge badge-grb">
+        <div class="badge-icon">
+          <svg viewBox="0 0 32 32" fill="none"><path d="M16 4c-4 8 0 12 0 18 0 3.3 2.7 6 0 6s0-2.7 0-6c0-6 4-10 0-18z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" fill="none"/><path d="M10 12c-2 5 0 9 0 12" stroke="currentColor" stroke-width="1.5" opacity="0.6" fill="none"/><path d="M22 12c2 5 0 9 0 12" stroke="currentColor" stroke-width="1.5" opacity="0.6" fill="none"/></svg>
+        </div>
+        <div class="badge-name">Hunter II</div>
+        <div class="badge-req">50 Grabbers</div>
+      </div>
+      <div class="badge badge-grb">
+        <div class="badge-icon">
+          <svg viewBox="0 0 32 32" fill="none"><circle cx="16" cy="13" r="7" stroke="currentColor" stroke-width="1.8" fill="none"/><path d="M10 18l-2 8h16l-2-8" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" fill="none"/><circle cx="13" cy="12" r="1.5" fill="currentColor" opacity="0.7"/><circle cx="19" cy="12" r="1.5" fill="currentColor" opacity="0.7"/><path d="M13 17.5a3 3 0 0 0 6 0" stroke="currentColor" stroke-width="1.5" fill="none"/></svg>
+        </div>
+        <div class="badge-name">Hunter III</div>
+        <div class="badge-req">100 Grabbers</div>
+      </div>
+      <div class="badge badge-grb">
+        <div class="badge-icon">
+          <svg viewBox="0 0 32 32" fill="none"><circle cx="16" cy="13" r="7" stroke="currentColor" stroke-width="1.8" fill="none"/><path d="M10 18l-2 8h16l-2-8" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" fill="none"/><path d="M12 10.5l1 1M20 10.5l-1 1M11 15h2M19 15h2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </div>
+        <div class="badge-name">Hunter IV</div>
+        <div class="badge-req">300 Grabbers</div>
+      </div>
+      <div class="badge badge-grb elite">
+        <div class="badge-icon">
+          <svg viewBox="0 0 32 32" fill="none"><path d="M16 4c-3 2-5 0-7 2s0 5-2 7 -5 2-5 3 3 1 5 3 0 5 2 7 4 0 7 2 2 5 0 5 -2-3 0-5 2-2 4-5 2-5 3-7 5-2 5-3 -3-1-5-3 0-5-2-7-5 0-7-2z" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linejoin="round"/></svg>
+        </div>
+        <div class="badge-name">Hunter V</div>
+        <div class="badge-req">500 Grabbers</div>
+      </div>
+    </div>
+
+    <div class="callout c-success rv" style="margin-top:32px">
+      <svg class="callout-icon" width="18" height="18" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="7" r="4" stroke="currentColor" stroke-width="1.5" fill="none"/><path d="M5 11.5L4 16l5-2.5 5 2.5-1-4.5" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" fill="none"/></svg>
+      <div class="callout-body">
+        <strong>Badges are fully automatic.</strong> The system checks your stats continuously. The moment you hit a threshold, the badge is queued. A congratulations notification appears on your next login. You never need to claim or request anything.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+     REPUTATION
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
+<section class="s" id="rep">
+  <div class="s-inner">
+    <div class="sec-label rv">12 — Community</div>
+    <h2 class="sec-title rv">Reputation &amp;<br><span>Stats</span></h2>
+    <p class="sec-sub rv">
+      Three stats define your standing in the Vortex community. All are tracked automatically.
+    </p>
+
+    <div class="grid grid-3 rv">
+      <div class="card card-teal" style="transition-delay:0.05s">
+        <div class="card-icon ci-teal">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M12 3l2.5 7.5H22l-6.5 4.5 2.5 7.5L12 18l-6 4.5 2.5-7.5L2 10.5h7.5z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" fill="none"/></svg>
+        </div>
+        <h3>Reputation</h3>
+        <p>The primary progression metric. Grows as you contribute completed scans to the shared database. Higher reputation means higher rank on the main leaderboard and progression through the Analyst badge track.</p>
+      </div>
+      <div class="card card-red" style="transition-delay:0.1s">
+        <div class="card-icon ci-red">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="8" stroke="currentColor" stroke-width="1.8" fill="none"/><circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="1.5" fill="none"/><circle cx="12" cy="12" r="1.5" fill="currentColor"/><path d="M12 4v2M12 18v2M4 12h2M18 12h2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </div>
+        <h3>Grabber Detections</h3>
+        <p>Counts how many confirmed Discord token stealers you've found. Tracked independently from reputation. Determines your rank on the threat-hunter leaderboard and drives the Hunter badge track.</p>
+      </div>
+      <div class="card card-purple" style="transition-delay:0.15s">
+        <div class="card-icon ci-purple">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M2 20L6 10l4 6 4-12 4 8 2-4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>
+        </div>
+        <h3>Total Scans</h3>
+        <p>Your cumulative lifetime scan count — every scan ever submitted. Reflects how actively you use the platform. Shown on your profile and the volume leaderboard.</p>
+      </div>
+    </div>
+
+    <div class="divider rv"></div>
+
+    <div class="rv">
+      <table class="tbl">
+        <thead><tr><th>Stat</th><th>What It Tracks</th><th>Visible to Others</th></tr></thead>
+        <tbody>
+          <tr><td><span class="mono-inline">reputation</span></td><td>Scan contributions to the global database</td><td class="td-good">Yes — profile and leaderboard</td></tr>
+          <tr><td><span class="mono-inline">grabberDetections</span></td><td>Confirmed Discord threats discovered</td><td class="td-good">Yes — profile and leaderboard</td></tr>
+          <tr><td><span class="mono-inline">totalScans</span></td><td>Lifetime scan submission count</td><td class="td-good">Yes — profile and leaderboard</td></tr>
+          <tr><td><span class="mono-inline">freeScansLeft</span></td><td>Remaining free scans for today</td><td class="td-priv">Only you</td></tr>
+          <tr><td><span class="mono-inline">premiumScans</span></td><td>Remaining premium credit balance</td><td class="td-priv">Only you</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+     LEADERBOARD
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
+<section class="s s-alt" id="leaderboard">
+  <div class="s-inner">
+    <div class="sec-label rv">13 — Community</div>
+    <h2 class="sec-title rv">The <span>Leaderboard</span></h2>
+    <p class="sec-sub rv">Three separate rankings, each measuring a different dimension of contribution. Access from the Leaderboard tab inside Vortex.</p>
+
+    <div class="grid grid-3 rv">
+      <div class="card card-teal" style="transition-delay:0.05s">
+        <div class="card-icon ci-teal">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><rect x="3" y="10" width="5" height="11" rx="1" stroke="currentColor" stroke-width="1.8" fill="none"/><rect x="9.5" y="6" width="5" height="15" rx="1" stroke="currentColor" stroke-width="1.8" fill="none"/><rect x="16" y="3" width="5" height="18" rx="1" stroke="currentColor" stroke-width="1.8" fill="none"/></svg>
+        </div>
+        <h3>Reputation Rank</h3>
+        <p>The primary leaderboard. Rankings by scan contribution to the global database. The most comprehensive measure of community activity and quality.</p>
+      </div>
+      <div class="card card-red" style="transition-delay:0.1s">
+        <div class="card-icon ci-red">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="8" stroke="currentColor" stroke-width="1.8" fill="none"/><circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="1.5" fill="none"/><circle cx="12" cy="12" r="1" fill="currentColor"/></svg>
+        </div>
+        <h3>Grabber Rank</h3>
+        <p>Ranks users by confirmed Discord threat discoveries. A high position here means you've been a significant force in identifying real malware targeting the Discord community.</p>
+      </div>
+      <div class="card card-purple" style="transition-delay:0.15s">
+        <div class="card-icon ci-purple">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M3 3h18v18H3z" stroke="none"/><path d="M3 17l5-5 4 4 4-6 5 3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>
+        </div>
+        <h3>Volume Rank</h3>
+        <p>Raw scan volume — total scans submitted over your lifetime. Reflects consistent platform engagement regardless of threat discovery rate.</p>
+      </div>
+    </div>
+    <div class="callout c-info rv">
+      <svg class="callout-icon" width="18" height="18" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="7" stroke="currentColor" stroke-width="1.5"/><path d="M9 8v5M9 5.5v.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+      <div class="callout-body">
+        Leaderboard standings are visible to all logged-in users. Your <strong>username, display name, equipped badge, reputation, grabber count, and total scans</strong> are all shown for your leaderboard entry.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+     RULES & CONDUCT
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
+<section class="s" id="conduct">
+  <div class="s-inner">
+    <div class="sec-label rv">14 — Reference</div>
+    <h2 class="sec-title rv">Rules &amp;<br><span>Conduct</span></h2>
+    <p class="sec-sub rv">
+      Vortex enforces strict policies to maintain platform integrity and prevent abuse.
+      Violations are detected automatically and result in permanent bans with no appeal pathway.
+    </p>
+
+    <div class="grid grid-2 rv">
+      <div class="card card-red">
+        <div class="card-icon ci-red">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.8" fill="none"/><path d="M15 9l-6 6M9 9l6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+        </div>
+        <h3>Prohibited</h3>
+        <ul>
+          <li>Creating more than one account per person or device</li>
+          <li>Using VPNs or proxies during account registration</li>
+          <li>Sharing your account, session, or credentials with others</li>
+          <li>Attaching debugging tools to the Vortex process</li>
+          <li>Intercepting, tampering with, or modifying Vortex network traffic</li>
+          <li>Attempting to reverse-engineer or circumvent security measures</li>
+          <li>Submitting false, fabricated, or manipulated scan data</li>
+        </ul>
+      </div>
+      <div class="card card-teal">
+        <div class="card-icon ci-teal">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.8" fill="none"/><path d="M8 12l3 3 5-5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <h3>Permitted</h3>
+        <ul>
+          <li>Scanning any file you have a legitimate reason to analyze</li>
+          <li>Using a VPN after registration — login and scanning are fine</li>
+          <li>Sharing scan result summaries and reports in communities</li>
+          <li>Using all 5 of your free daily scans every day</li>
+          <li>Discussing Vortex findings and results publicly</li>
+          <li>Reporting bugs or suspected false positives to the team</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="callout c-danger rv">
+      <svg class="callout-icon" width="18" height="18" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="7" stroke="currentColor" stroke-width="1.5"/><path d="M9 5v5M9 12.5v.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+      <div class="callout-body">
+        Vortex actively monitors for policy violations during all sessions. Violations result in the <strong>immediate and permanent ban of the account, device, and registration IP</strong>. No manual review, no appeal, no exceptions.
+      </div>
+    </div>
+
+    <div class="divider rv"></div>
+
+    <div class="sec-label rv">Best Practices</div>
+    <div class="steps rv">
+      <div class="step">
+        <div class="step-n"><div class="step-circle good">
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </div></div>
+        <div class="step-body">
+          <h4>Configure all three API keys before your first scan</h4>
+          <p>Without VirusTotal and Hybrid Analysis keys, executable scans never reach completion status and results aren't saved. Without your OpenRouter key, the AI verdict layer is disabled. Set up all three in config.json before scanning.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-n"><div class="step-circle good">
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </div></div>
+        <div class="step-body">
+          <h4>Never close Vortex or disconnect mid-scan</h4>
+          <p>Closing the app or losing internet connectivity during a scan wastes your credit without producing a saved result. Let scans run to completion — especially the cloud query phase, which can take 30–90 seconds depending on server response times.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-n"><div class="step-circle good">
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </div></div>
+        <div class="step-body">
+          <h4>Protect your config.json file</h4>
+          <p>Your API keys live in config.json. Never share this file, include it in screenshots, or upload it anywhere. Anyone with your keys can consume your API quota and run scans under your identity.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-n"><div class="step-circle good">
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </div></div>
+        <div class="step-body">
+          <h4>Prioritize uncertain files with your free scans</h4>
+          <p>With 5 free scans daily, focus on files you genuinely need to analyze. Don't waste free scans on files you already know are clean. Save premium credits for batch scanning sessions where you're processing many new files.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+     FAQ
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
+<section class="s s-alt" id="faq">
+  <div class="s-inner">
+    <div class="sec-label rv">15 — Reference</div>
+    <h2 class="sec-title rv">Frequently<br><span>Asked</span></h2>
+    <p class="sec-sub rv">Everything users commonly ask — answered directly.</p>
+
+    <div class="faqs rv">
+      <div class="faq">
+        <button class="faq-q">My exe scan shows "incomplete" — what do I do? <svg class="faq-arr" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></button>
+        <div class="faq-a"><div class="faq-a-in">For .exe, .dll, and .sys files, <strong>both</strong> VirusTotal and Hybrid Analysis must return results for the scan to be marked complete and saved. If either service times out — due to network issues, API rate limits, or slow response — the scan is not saved. Re-upload the file and try again. Your scan credit was deducted and is not refunded; the retry costs a new credit.</div></div>
+      </div>
+      <div class="faq">
+        <button class="faq-q">Exactly when do my free scans reset? <svg class="faq-arr" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></button>
+        <div class="faq-a"><div class="faq-a-in">Free scans reset at <strong>12:00 AM Indian Standard Time (IST)</strong> — which is 18:30 UTC the previous day (6:30 PM UTC). This applies to all accounts simultaneously. If you're in a different timezone, calculate what 12 AM IST translates to in your local time. The reset is automatic — no action needed.</div></div>
+      </div>
+      <div class="faq">
+        <button class="faq-q">I scanned the same file twice — did I use two free scans? <svg class="faq-arr" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></button>
+        <div class="faq-a"><div class="faq-a-in"><strong>Yes.</strong> Free scans are deducted on every submission — including files already in the database. Scanning the same file twice uses 2 free scans. Premium credits work differently: scanning a file already in the database costs 0 premium credits. If you're on premium, duplicate scans are always free.</div></div>
+      </div>
+      <div class="faq">
+        <button class="faq-q">Can I use a VPN with Vortex? <svg class="faq-arr" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></button>
+        <div class="faq-a"><div class="faq-a-in">VPN use is <strong>blocked during account registration only</strong>. You must sign up using your real home or mobile network. After your account is created, using a VPN for login and scanning is permitted. Attempting to register through a VPN, proxy, or datacenter IP will be rejected.</div></div>
+      </div>
+      <div class="faq">
+        <button class="faq-q">Why is my account locked to one device? Can I transfer it? <svg class="faq-arr" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></button>
+        <div class="faq-a"><div class="faq-a-in">Your account is bound to the hardware ID of the first device you log in from. This prevents account sharing and unauthorized use. If you genuinely need to move your account to a new machine — old device broken, new computer — contact the Vortex team directly. Attempting to bypass this by creating a new account is a bannable offense.</div></div>
+      </div>
+      <div class="faq">
+        <button class="faq-q">How do badges get awarded? Do I need to do anything? <svg class="faq-arr" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></button>
+        <div class="faq-a"><div class="faq-a-in"><strong>Badges are fully automatic.</strong> The system continuously monitors all users' reputation and grabber detection counts. The instant you hit a threshold, the badge is queued. You'll see a congratulations popup on your next login. Nothing is required on your part — no claiming, no requesting.</div></div>
+      </div>
+      <div class="faq">
+        <button class="faq-q">What's the difference between reputation and grabber detections? <svg class="faq-arr" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></button>
+        <div class="faq-a"><div class="faq-a-in"><strong>Reputation</strong> increases with every completed scan you contribute to the global database — it measures general scanning activity. <strong>Grabber detections</strong> count only the scans where a confirmed Discord token stealer was found — it measures threat discovery quality. You can have high reputation but few grabber detections if you mostly scan clean files, or vice versa.</div></div>
+      </div>
+      <div class="faq">
+        <button class="faq-q">My scan took longer than expected — is something wrong? <svg class="faq-arr" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></button>
+        <div class="faq-a"><div class="faq-a-in">For previously unseen executable files (.exe, .dll, .sys), scans typically take 60–180 seconds because they involve cloud API queries and behavioral analysis. Files that already exist in the global database return instantly. If a scan exceeds 5 minutes, there may be a connectivity issue — check your internet connection and ensure your API keys are valid.</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+     DOWNLOAD
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
+<section class="s" id="download">
+  <div class="s-inner">
+    <div class="sec-label rv">16 — Download</div>
+    <h2 class="sec-title rv">Get <span>Vortex</span></h2>
+    <p class="sec-sub rv">
+      Download the latest version of Vortex below. Always use the latest release to ensure you have current detection signatures and server compatibility.
+    </p>
+
+    <!-- Latest Release Card (dynamically populated from versions.js data) -->
+    <div class="download-hero rv" id="latestRelease">
+      <!-- Populated by script.js -->
+    </div>
+
+    <div class="divider rv"></div>
+
+    <div class="sec-label rv">Version History</div>
+    <div class="versions-list rv" id="versionsList">
+      <!-- Populated by script.js -->
+    </div>
+  </div>
+</section>
+
+<!-- ── FOOTER ──────────────────────────────── -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <span class="footer-logo">VORTEX</span>
+      <span class="footer-tagline">Discord Threat Analysis Platform</span>
+    </div>
+    <div class="footer-note">Documentation · All rights reserved</div>
+  </div>
+</footer>
+
+</main>
+
+<!-- ── BACK TO TOP ────────────────────────── -->
+<button class="btt" id="btt" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Back to top">
+  <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 12V4M4 7l4-4 4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+</button>
+
+<script src="assets/js/script.js"></script>
+</body>
+</html>
