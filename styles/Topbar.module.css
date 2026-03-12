@@ -1,0 +1,148 @@
+/* ── Topbar ────────────────────────────────────────────────────── */
+.topbar {
+  position: fixed;
+  top: 0;
+  right: 0;
+  height: 64px;
+  z-index: 900;
+  display: flex;
+  align-items: center;
+  gap: 0;
+  padding: 0 20px 0 16px;
+  background: rgba(10, 15, 25, 0.7);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  transition: left 0.3s ease, background 0.3s, box-shadow 0.3s;
+}
+
+.topbar.scrolled {
+  background: rgba(5, 8, 16, 0.85);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+/* ── Logo ──────────────────────────────────────────────────────── */
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px 16px 8px 8px;
+  margin-right: 8px;
+  border-right: 1px solid rgba(255, 255, 255, 0.1);
+  transition: opacity 0.2s;
+}
+
+.logo:hover {
+  opacity: 0.9;
+}
+
+.logo span {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 1.2rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, #3b82f6, #22d3ee);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  white-space: nowrap;
+}
+
+/* ── Nav strip ─────────────────────────────────────────────────── */
+.navStrip {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  padding: 0 12px;
+  mask-image: linear-gradient(to right, transparent, black 12px, black calc(100% - 12px), transparent);
+  -webkit-mask-image: linear-gradient(to right, transparent, black 12px, black calc(100% - 12px), transparent);
+}
+
+.navStrip::-webkit-scrollbar {
+  display: none;
+}
+
+/* ── Nav item ──────────────────────────────────────────────────── */
+.navItem {
+  position: relative;
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px 14px;
+  border-radius: 20px;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.6);
+  white-space: nowrap;
+  transition: color 0.2s, background 0.2s;
+  letter-spacing: 0.02em;
+}
+
+.navItem:hover {
+  color: white;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.navItem.active {
+  color: #7dd3fc;
+  background: rgba(34, 211, 238, 0.12);
+  font-weight: 600;
+}
+
+/* ── Download CTA ───────────────────────────────────────────────── */
+.downloadBtn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+  padding: 8px 18px;
+  margin-left: 12px;
+  background: linear-gradient(135deg, #3b82f6, #22d3ee);
+  border-radius: 30px;
+  color: white;
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+  font-size: 0.9rem;
+  text-decoration: none;
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+  transition: filter 0.2s, box-shadow 0.2s, transform 0.1s;
+  white-space: nowrap;
+}
+
+.downloadBtn:hover {
+  filter: brightness(1.1);
+  box-shadow: 0 6px 18px rgba(34, 211, 238, 0.4);
+  transform: translateY(-1px);
+}
+
+/* ── Responsive: on mobile, topbar starts at 0 (menu button is handled separately) ── */
+@media (max-width: 1060px) {
+  .topbar {
+    left: 0 !important;
+    padding-left: 70px; /* space for menu button */
+  }
+}
+
+@media (max-width: 640px) {
+  .downloadBtn span {
+    display: none;
+  }
+  .downloadBtn {
+    padding: 8px 12px;
+  }
+  .logo span {
+    display: none;
+  }
+}
