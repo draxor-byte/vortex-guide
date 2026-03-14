@@ -11,7 +11,7 @@ interface Version {
 
 const VERSIONS: Version[] = [
   {
-    version: "1.0.0",
+    version: "1.0.1",
     title: "Initial Public Release",
     date: "January 2025",
     isLatest: true,
