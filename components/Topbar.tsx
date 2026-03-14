@@ -24,7 +24,7 @@ const navItems = [
   { id: 'download',    label: 'Download' },
 ];
 
-const DOWNLOAD_URL = 'https://github.com/BLAZE-X00001/vortex-releases/releases/download/v1.0.0/Vortex.exe';
+const DOWNLOAD_URL = 'https://github.com/blaze802/vortex-release/releases/download/v1.0.1/Vortex.exe';
 
 interface TopbarProps {
   sidebarOpen: boolean;
