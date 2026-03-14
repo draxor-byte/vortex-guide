@@ -15,7 +15,7 @@ const VERSIONS: Version[] = [
     title: "Initial Public Release",
     date: "January 2025",
     isLatest: true,
-    downloadUrl: "https://github.com/BLAZE-X00008/vortex-discord-security/releases/download/v1.0.0/Vortex.exe",
+    downloadUrl: "https://github.com/BLAZE-X00008/vortex-discord-security/releases/download/v1.0.1/Vortex.exe",
     notes: [
       "7-layer threat analysis: Static, YARA, CAPA, VirusTotal, Hybrid Analysis, Sandbox (dynamic), and AI verdict engine",
       "Sandbox analysis with GrabberDetector (Method 1) and deep-dive (Method 2)",
