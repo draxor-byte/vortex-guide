@@ -11,11 +11,45 @@ interface Version {
 
 const VERSIONS: Version[] = [
   {
+    version: "1.0.2",
+    title: "Expanded Threat Coverage Update",
+    date: "March 2025",
+    isLatest: true,
+    downloadUrl: "https://github.com/blaze0089/Vortex-discord-token-security-grabber-detector/releases/download/V1.0.2/Vortex.exe",
+    notes: [
+      "Browser credential detection — saved passwords, cookies, autofill data, and saved cards",
+      "Password manager vault theft detection (KeePass, Bitwarden, and others)",
+      "Cryptocurrency wallet detection across major browser extensions and desktop wallets",
+      "Gaming platform token detection — Steam, Epic Games, and Riot",
+      "Streaming service OAuth token detection — Spotify, Twitch, and others",
+      "Email client credential detection — Outlook, Thunderbird",
+      "SSH / FTP credential and private key exfiltration detection",
+      "WiFi saved password harvesting detection",
+      "Messaging app session file theft detection — Telegram Desktop",
+      "Windows Credential Vault entry theft detection",
+      "Screenshot + data exfiltration combination attack detection",
+      "Anti-analysis evasion detection — grabbers that attempt to detect and evade Vortex",
+    ],
+  },
+  {
     version: "1.0.1",
+    title: "VM Safety & Setup Requirements Update",
+    date: "February 2025",
+    isLatest: false,
+    downloadUrl: "https://github.com/BLAZE-X00001/vortex-releases/releases/download/v1.0.1/Vortex.exe",
+    notes: [
+      "Mandatory VM isolation requirement — VMware or VirtualBox only, never run on main system",
+      "MSI App Player installed requirement",
+      "Discord throwaway account requirement for token-grabber baiting inside VM",
+      "VM snapshot workflow enforced — create before each session, restore after every scan",
+    ],
+  },
+  {
+    version: "1.0.0",
     title: "Initial Public Release",
     date: "January 2025",
-    isLatest: true,
-    downloadUrl: "https://github.com/blaze802/vortex-release/releases/download/v1.0.1/Vortex.exe",
+    isLatest: false,
+    downloadUrl: "https://github.com/BLAZE-X00001/vortex-releases/releases/download/v1.0.0/Vortex.exe",
     notes: [
       "7-layer threat analysis: Static, YARA, CAPA, VirusTotal, Hybrid Analysis, Sandbox (dynamic), and AI verdict engine",
       "Sandbox analysis with GrabberDetector (Method 1) and deep-dive (Method 2)",
@@ -90,5 +124,4 @@ export default function Download() {
       </div>
     </>
   );
-
 }
